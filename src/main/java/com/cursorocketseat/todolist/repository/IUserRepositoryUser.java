@@ -1,6 +1,6 @@
 package com.cursorocketseat.todolist.repository;
 
-import com.cursorocketseat.todolist.user.UserModel;
+import com.cursorocketseat.todolist.usermodel.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
