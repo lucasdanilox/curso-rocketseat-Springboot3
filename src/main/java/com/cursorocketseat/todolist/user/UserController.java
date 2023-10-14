@@ -1,5 +1,6 @@
 package com.cursorocketseat.todolist.user;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.cursorocketseat.todolist.repository.IUserRepositoryUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,10 @@ public class UserController {
             System.out.println("Usuario Já Existe");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário já Existe");
         }
+
+        var passwordHasred = BCrypt.withDefaults().hashToString(12, userModel.getPassword().toCharArray());
+
+        userModel.setPassword(passwordHasred);
 
         var userCreated = this.userRepository.save(userModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
