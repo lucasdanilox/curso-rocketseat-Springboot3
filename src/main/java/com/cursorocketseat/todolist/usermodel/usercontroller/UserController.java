@@ -1,7 +1,7 @@
 package com.cursorocketseat.todolist.usermodel.usercontroller;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.cursorocketseat.todolist.repository.IUserRepositoryUser;
+import com.cursorocketseat.todolist.repository.IUserRepository;
 import com.cursorocketseat.todolist.usermodel.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    private IUserRepositoryUser userRepository;
+    private IUserRepository userRepository;
 
 
     @PostMapping("/")
