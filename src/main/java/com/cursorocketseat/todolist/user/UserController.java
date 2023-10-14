@@ -1,7 +1,6 @@
 package com.cursorocketseat.todolist.user;
 
-import com.cursorocketseat.todolist.repositoryuser.IUserRepository;
-import org.apache.catalina.User;
+import com.cursorocketseat.todolist.repository.IUserRepositoryUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,11 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    private IUserRepository userRepository;
+    private IUserRepositoryUser userRepository;
 
 
     @PostMapping("/")
     public UserModel create(@RequestBody UserModel userModel) {
+        var user = this.userRepository.findByUsername(userModel.getUsername());
+        if (user != null) {
+            System.out.println("Usuario Já Existe");
+            return null;
+        }
+
         var userCreated = this.userRepository.save(userModel);
         return userCreated;
 
