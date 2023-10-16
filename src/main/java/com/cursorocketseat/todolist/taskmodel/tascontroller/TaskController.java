@@ -2,6 +2,7 @@ package com.cursorocketseat.todolist.taskmodel.tascontroller;
 
 import com.cursorocketseat.todolist.repository.ITaskRepository;
 import com.cursorocketseat.todolist.taskmodel.TaskModel;
+import com.cursorocketseat.todolist.utils.Utils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,9 +51,9 @@ public class TaskController {
     @PutMapping("/{id}")
     public TaskModel update(@RequestBody TaskModel taskModel, HttpServletRequest request , @PathVariable UUID id){
         var idUser = request.getAttribute("idUser");
-        taskModel.setIdUser((UUID) idUser);
-        taskModel.setId(id);
-        return this.iTaskRepository.save(taskModel);
+        var task =  this.iTaskRepository.findById(id).orElse(null);
+        Utils.copyNonNullProperties(taskModel, task);
+        return this.iTaskRepository.save(task);
 
     }
 
