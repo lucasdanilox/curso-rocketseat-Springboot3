@@ -1,4 +1,4 @@
-# Spring-boot3-Curso-Completo
+# Spring-boot3-Rocketseat
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/lucasdanilox/Projeto-springboot3-jpa/blob/main/LICENSE) 
 
 Este é um projeto feito junto com rocketseat.
