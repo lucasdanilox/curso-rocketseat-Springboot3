@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    private IUserRepository userRepository;
+    private IUserRepository iUserRepository;
 
 
     @PostMapping("/")
     public ResponseEntity create(@RequestBody UserModel userModel) {
-        var user = this.userRepository.findByUsername(userModel.getUsername());
+        var user = this.iUserRepository.findByUsername(userModel.getUsername());
         if (user != null) {
             System.out.println("Usuario Já Existe");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário já Existe");
@@ -31,7 +31,7 @@ public class UserController {
 
         userModel.setPassword(passwordHasred);
 
-        var userCreated = this.userRepository.save(userModel);
+        var userCreated = this.iUserRepository.save(userModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
 
 
