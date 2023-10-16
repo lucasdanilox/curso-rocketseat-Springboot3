@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -36,6 +37,14 @@ public class TaskController {
 
         var task = this.iTaskRepository.save(taskModel);
         return ResponseEntity.status(HttpStatus.OK).body(task);
+
+    }
+
+    @GetMapping("/")
+    public List<TaskModel> list(HttpServletRequest request){
+        var idUser = request.getAttribute("idUser");
+        var tasks = this.iTaskRepository.findByIdUser((UUID) idUser);
+        return tasks;
 
     }
 
