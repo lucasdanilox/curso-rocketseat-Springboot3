@@ -25,12 +25,12 @@ public class TaskController {
         taskModel.setIdUser((UUID) idUser);
 
         var currentDate = LocalDateTime.now();
-        if (currentDate.isAfter(taskModel.getStartAt()) || currentDate.isAfter(taskModel.getStartAt())){
+        if (currentDate.isAfter(taskModel.getStartAt()) || currentDate.isAfter(taskModel.getStartAt())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("A data de inicio /  data do termino" +
                     " deve maior do que a data atual!!");
         }
 
-        if (taskModel.getStartAt().isAfter(taskModel.getEndAt())){
+        if (taskModel.getStartAt().isAfter(taskModel.getEndAt())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("A data de inicio deve" +
                     " ser menor que a data de termino!!");
         }
@@ -41,10 +41,18 @@ public class TaskController {
     }
 
     @GetMapping("/")
-    public List<TaskModel> list(HttpServletRequest request){
+    public List<TaskModel> list(HttpServletRequest request) {
         var idUser = request.getAttribute("idUser");
         var tasks = this.iTaskRepository.findByIdUser((UUID) idUser);
         return tasks;
+    }
+
+    @PutMapping("/{id}")
+    public TaskModel update(@RequestBody TaskModel taskModel, HttpServletRequest request , @PathVariable UUID id){
+        var idUser = request.getAttribute("idUser");
+        taskModel.setIdUser((UUID) idUser);
+        taskModel.setId(id);
+        return this.iTaskRepository.save(taskModel);
 
     }
 
