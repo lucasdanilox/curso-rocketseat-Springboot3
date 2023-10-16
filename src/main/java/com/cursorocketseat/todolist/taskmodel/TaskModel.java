@@ -26,12 +26,19 @@ public class TaskModel {
     @CreationTimestamp
     private LocalDateTime createAt;
 
+    public void setTitle(String title) throws Exception {
+        if (title.length() > 50) {
+            throw new Exception("Maximo de caracteres: 50");
+        }
+        this.title = title;
+    }
 
     private UUID idUser;
 
-    public TaskModel(){
+    public TaskModel() {
 
     }
+
     public UUID getId() {
         return id;
     }
@@ -50,10 +57,6 @@ public class TaskModel {
 
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public LocalDateTime getStartAt() {
